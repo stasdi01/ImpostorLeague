@@ -35,15 +35,14 @@ export default function HomeScreen() {
           </Text>
         </TouchableOpacity>
 
-        {/* Online — coming soon */}
+        {/* How to Play */}
         <TouchableOpacity
           className="w-full border border-[#2A2A2A] rounded-2xl py-5 items-center"
-          activeOpacity={1}
-          disabled
+          activeOpacity={0.85}
+          onPress={() => router.push('/how-to-play')}
         >
           <Text className="text-[#8A8A8A] text-xl font-bold tracking-wide">
-            Online{' '}
-            <Text className="text-sm font-normal">(Coming Soon)</Text>
+            How to Play
           </Text>
         </TouchableOpacity>
       </View>
