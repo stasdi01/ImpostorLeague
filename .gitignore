@@ -1,0 +1,44 @@
+# Dependencies
+mobile/node_modules/
+backend/node_modules/
+
+# Expo
+mobile/.expo/
+mobile/dist/
+mobile/web-build/
+mobile/expo-env.d.ts
+
+# EAS / Native builds
+mobile/.kotlin/
+mobile/*.orig.*
+mobile/*.jks
+mobile/*.p8
+mobile/*.p12
+mobile/*.key
+mobile/*.mobileprovision
+mobile/.metro-health-check*
+
+# Generated native folders
+mobile/ios/
+mobile/android/
+
+# Backend build output
+backend/dist/
+
+# Environment files
+mobile/.env
+mobile/.env*.local
+backend/.env
+
+# macOS
+.DS_Store
+**/.DS_Store
+*.pem
+
+# Logs
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+
+# TypeScript
+*.tsbuildinfo
