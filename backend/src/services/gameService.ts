@@ -205,7 +205,10 @@ export async function buildGameSession(input: GameSetupInput): Promise<GameSessi
     }));
   }
 
-  // 4. Pick first player
+  // 4. Shuffle players so impostors aren't always shown first
+  players = players.sort(() => Math.random() - 0.5);
+
+  // 5. Pick first player
   const firstPlayer = pickFirstPlayer(resolvedNames);
 
   return { realWord, players, firstPlayer };

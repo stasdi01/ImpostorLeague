@@ -77,11 +77,27 @@ export default function ConfigureScreen() {
   const [players, setPlayers] = useState(4);
   const [impostors, setImpostors] = useState(1);
 
-  const maxImpostors = players === 3 ? 1 : 3;
+  const maxImpostors =
+    selectedMode === 'different-player'
+      ? Math.min(3, Math.floor((players - 1) / 2))
+      : Math.min(3, players - 2);
 
   function handlePlayersChange(value: number) {
     setPlayers(value);
-    if (value === 3) setImpostors(1); // lock to 1 if only 3 players
+    const newMax =
+      selectedMode === 'different-player'
+        ? Math.min(3, Math.floor((value - 1) / 2))
+        : Math.min(3, value - 2);
+    setImpostors((prev) => Math.min(prev, newMax));
+  }
+
+  function handleModeChange(mode: GameMode) {
+    setSelectedMode(mode);
+    const newMax =
+      mode === 'different-player'
+        ? Math.min(3, Math.floor((players - 1) / 2))
+        : Math.min(3, players - 2);
+    setImpostors((prev) => Math.min(prev, newMax));
   }
 
   function handleImpostorsChange(value: number) {
@@ -100,10 +116,19 @@ export default function ConfigureScreen() {
       <StatusBar barStyle="light-content" backgroundColor="#1A1A1A" />
 
       <ScrollView
-        className="flex-1 px-6 pt-8"
+        className="flex-1 px-6 pt-4"
         contentContainerStyle={{ paddingBottom: 24 }}
         showsVerticalScrollIndicator={false}
       >
+        {/* Back button */}
+        <TouchableOpacity
+          className="self-start mb-6"
+          activeOpacity={0.7}
+          onPress={() => router.back()}
+        >
+          <Ionicons name="arrow-back" size={24} color="#FFFFFF" />
+        </TouchableOpacity>
+
         {/* Header */}
         <Text className="text-[#8A8A8A] text-sm font-semibold tracking-widest uppercase mb-2">
           Step 2 of 3
@@ -128,7 +153,7 @@ export default function ConfigureScreen() {
                     : 'bg-[#2A2A2A] border-[#2A2A2A]'
                 }`}
                 activeOpacity={0.85}
-                onPress={() => setSelectedMode(mode.key)}
+                onPress={() => handleModeChange(mode.key)}
               >
                 <View className="flex-row items-center mb-1">
                   <View
@@ -177,9 +202,9 @@ export default function ConfigureScreen() {
         <View className="bg-[#2A2A2A] rounded-2xl p-5 flex-row items-center justify-between mb-8">
           <View>
             <Text className="text-white text-base font-semibold">Impostors</Text>
-            {players === 3 && (
+            {maxImpostors < 3 && (
               <Text className="text-[#8A8A8A] text-xs mt-1">
-                Locked to 1 with 3 players
+                Max {maxImpostors} with {players} players
               </Text>
             )}
           </View>

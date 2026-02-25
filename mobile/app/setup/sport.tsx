@@ -2,6 +2,7 @@ import { View, Text, TouchableOpacity, StatusBar } from 'react-native';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useState } from 'react';
+import { Ionicons } from '@expo/vector-icons';
 import { useGameStore } from '@/store/gameStore';
 import type { Sport, Category } from '@/store/gameStore';
 
@@ -38,7 +39,16 @@ export default function SportScreen() {
     <SafeAreaView className="flex-1 bg-[#1A1A1A]">
       <StatusBar barStyle="light-content" backgroundColor="#1A1A1A" />
 
-      <View className="flex-1 px-6 pt-8">
+      <View className="flex-1 px-6 pt-4">
+        {/* Back button */}
+        <TouchableOpacity
+          className="self-start mb-6"
+          activeOpacity={0.7}
+          onPress={() => router.back()}
+        >
+          <Ionicons name="arrow-back" size={24} color="#FFFFFF" />
+        </TouchableOpacity>
+
         {/* Header */}
         <Text className="text-[#8A8A8A] text-sm font-semibold tracking-widest uppercase mb-2">
           Step 1 of 3

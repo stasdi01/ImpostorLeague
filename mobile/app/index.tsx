@@ -1,7 +1,6 @@
 import { View, Text, TouchableOpacity, StatusBar } from 'react-native';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Ionicons } from '@expo/vector-icons';
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -9,13 +8,6 @@ export default function HomeScreen() {
   return (
     <SafeAreaView className="flex-1 bg-[#1A1A1A]">
       <StatusBar barStyle="light-content" backgroundColor="#1A1A1A" />
-
-      {/* Settings icon — top right, future use */}
-      <View className="flex-row justify-end px-6 pt-4">
-        <TouchableOpacity activeOpacity={0.7} disabled>
-          <Ionicons name="settings-outline" size={24} color="#8A8A8A" />
-        </TouchableOpacity>
-      </View>
 
       {/* Logo + title */}
       <View className="flex-1 items-center justify-center px-8">

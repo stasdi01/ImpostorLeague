@@ -11,14 +11,15 @@ import {
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useState } from 'react';
+import { Ionicons } from '@expo/vector-icons';
 import { useGameStore } from '@/store/gameStore';
 
 export default function PlayersScreen() {
   const router = useRouter();
-  const { playerCount, setPlayerNames } = useGameStore();
+  const { playerCount, playerNames, setPlayerNames } = useGameStore();
 
   const [names, setNames] = useState<string[]>(
-    Array.from({ length: playerCount }, () => ''),
+    Array.from({ length: playerCount }, (_, i) => playerNames[i] ?? ''),
   );
 
   function updateName(index: number, value: string) {
@@ -43,11 +44,20 @@ export default function PlayersScreen() {
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
         <ScrollView
-          className="flex-1 px-6 pt-8"
+          className="flex-1 px-6 pt-4"
           contentContainerStyle={{ paddingBottom: 24 }}
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
         >
+          {/* Back button */}
+          <TouchableOpacity
+            className="self-start mb-6"
+            activeOpacity={0.7}
+            onPress={() => router.back()}
+          >
+            <Ionicons name="arrow-back" size={24} color="#FFFFFF" />
+          </TouchableOpacity>
+
           {/* Header */}
           <Text className="text-[#8A8A8A] text-sm font-semibold tracking-widest uppercase mb-2">
             Step 3 of 3
